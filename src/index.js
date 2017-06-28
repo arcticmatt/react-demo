@@ -82,11 +82,10 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
-    console.log(history);
 
     const moves = history.map((step, move) => {
       const desc = move ?
-        'Move #' + move :
+        'Move at (' + getMovePos(history[move - 1], step) + ')' :
         'Game start';
       return (
         <li key={move}>
@@ -138,6 +137,17 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+function getMovePos(oldBoard, newBoard) {
+  // No length check
+  for (let i = 0; i < newBoard.squares.length; i++) {
+    let [o, n] = [oldBoard.squares[i], newBoard.squares[i]];
+    if (o !== n) {
+      return [Math.floor(i / 3) + 1, (i % 3) + 1];
+    }
+  }
+  return null; // this shouldn't happen
 }
 
 ReactDOM.render(
