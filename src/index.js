@@ -50,6 +50,7 @@ class Game extends React.Component {
       }],
       stepNumber: 0,
       xIsNext: true,
+      asc: true,
     };
   }
 
@@ -75,6 +76,12 @@ class Game extends React.Component {
       stepNumber: step,
       xIsNext: (step % 2) ? false : true,
     });
+  }
+
+  flipMoves() {
+    this.setState({
+      asc: !this.state.asc,
+    })
   }
 
   render() {
@@ -110,7 +117,12 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <ol>{this.state.asc ? moves : moves.reverse()}</ol>
+        </div>
+        <div>
+          <button onClick={() => this.flipMoves()}>
+            Flip!
+          </button>
         </div>
       </div>
     );
