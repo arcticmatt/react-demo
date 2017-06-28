@@ -87,11 +87,11 @@ class Game extends React.Component {
       const desc = move ?
         'Move at (' + getMovePos(history[move - 1], step) + ')' :
         'Game start';
-      return (
-        <li key={move}>
-          <a href='#' role='button' onClick={() =>this.jumpTo(move)}>{desc}</a>
-        </li>
-      )
+      const isBold = move === history.length - 1;
+      return (<li key={move}>
+        <a href='#' role='button' style={isBold ? {fontWeight: "bold"} : {}}
+          onClick={() =>this.jumpTo(move)}>{desc}</a>
+      </li>);
     })
 
     let status;
